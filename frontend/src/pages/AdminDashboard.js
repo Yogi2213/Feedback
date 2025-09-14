@@ -145,15 +145,17 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-green-900 dark:via-emerald-900 dark:to-gray-900 relative overflow-hidden">
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/15 to-cyan-600/15 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/30 to-emerald-600/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-emerald-400/25 to-teal-600/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-white/40 to-green-200/30 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-green-300/20 to-white/30 rounded-full blur-3xl animate-pulse delay-1500"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-emerald-300/25 to-green-300/25 rounded-full blur-2xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="relative container py-8">
+      <div className="relative container py-8 z-10">
         {/* Enhanced Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500/10 to-orange-500/10 dark:from-red-400/20 dark:to-orange-400/20 rounded-full mb-6 border border-red-200/50 dark:border-red-400/30 backdrop-blur-sm">
@@ -489,11 +491,17 @@ const AdminDashboard = () => {
 
           {/* Enhanced Recent Users and Stores */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Users className="w-6 h-6 text-blue-600" />
-                  Recent Users
+            <Card className="bg-gradient-to-br from-cyan-50/80 via-blue-50/60 to-indigo-50/40 dark:from-cyan-900/20 dark:via-blue-900/15 dark:to-indigo-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-300/20 to-indigo-400/20 rounded-full translate-y-12 -translate-x-12"></div>
+              
+              <CardHeader className="pb-4 relative z-10">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-lg">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">Recent Users</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
@@ -518,11 +526,17 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Store className="w-6 h-6 text-green-600" />
-                  Recent Stores
+            <Card className="bg-gradient-to-br from-emerald-50/80 via-green-50/60 to-teal-50/40 dark:from-emerald-900/20 dark:via-green-900/15 dark:to-teal-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-green-500/20 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-300/20 to-emerald-400/20 rounded-full translate-y-12 -translate-x-12"></div>
+              
+              <CardHeader className="pb-4 relative z-10">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl shadow-lg">
+                    <Store className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Recent Stores</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
@@ -553,11 +567,17 @@ const AdminDashboard = () => {
           </div>
 
           {/* Enhanced Top Rated Stores */}
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Award className="w-6 h-6 text-yellow-600" />
-                Top Rated Stores
+          <Card className="bg-gradient-to-br from-amber-50/80 via-yellow-50/60 to-orange-50/40 dark:from-amber-900/20 dark:via-yellow-900/15 dark:to-orange-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+            {/* Background Pattern */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-yellow-500/20 rounded-full -translate-y-16 translate-x-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-yellow-300/20 to-orange-400/20 rounded-full translate-y-12 -translate-x-12"></div>
+            
+            <CardHeader className="pb-4 relative z-10">
+              <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <div className="p-2 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl shadow-lg">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+                <span className="bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">Top Rated Stores</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -589,11 +609,17 @@ const AdminDashboard = () => {
           {/* Enhanced Analytics Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* User Role Distribution Chart */}
-            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Users className="w-6 h-6 text-purple-600" />
-                  User Role Distribution
+            <Card className="bg-gradient-to-br from-violet-50/80 via-purple-50/60 to-pink-50/40 dark:from-violet-900/20 dark:via-purple-900/15 dark:to-pink-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-400/20 to-purple-500/20 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-300/20 to-pink-400/20 rounded-full translate-y-12 -translate-x-12"></div>
+              
+              <CardHeader className="pb-4 relative z-10">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl shadow-lg">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">User Role Distribution</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
@@ -608,11 +634,17 @@ const AdminDashboard = () => {
             </Card>
 
             {/* Platform Growth Metrics */}
-            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
-                  Platform Growth
+            <Card className="bg-gradient-to-br from-emerald-50/80 via-green-50/60 to-teal-50/40 dark:from-emerald-900/20 dark:via-green-900/15 dark:to-teal-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-green-500/20 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-300/20 to-emerald-400/20 rounded-full translate-y-12 -translate-x-12"></div>
+              
+              <CardHeader className="pb-4 relative z-10">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl shadow-lg">
+                    <TrendingUp className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Platform Growth</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
@@ -653,6 +685,25 @@ const AdminDashboard = () => {
       {/* Users Tab */}
       {activeTab === 'users' && (
         <div className="space-y-6">
+          {/* Enhanced Users Header */}
+          <Card className="bg-gradient-to-br from-emerald-50/80 via-green-50/60 to-teal-50/40 dark:from-emerald-900/20 dark:via-green-900/15 dark:to-teal-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+            {/* Background Pattern */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-emerald-400/20 to-green-500/20 rounded-full -translate-y-20 translate-x-20"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-green-300/20 to-emerald-400/20 rounded-full translate-y-16 -translate-x-16"></div>
+            
+            <CardHeader className="relative z-10">
+              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">User Management</span>
+              </CardTitle>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">
+                Manage user accounts, roles, and permissions across the platform.
+              </p>
+            </CardHeader>
+          </Card>
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-between">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative">
@@ -776,6 +827,25 @@ const AdminDashboard = () => {
 
       {activeTab === 'stores' && (
         <div className="space-y-6">
+          {/* Enhanced Stores Header */}
+          <Card className="bg-gradient-to-br from-violet-50/80 via-purple-50/60 to-pink-50/40 dark:from-violet-900/20 dark:via-purple-900/15 dark:to-pink-900/10 backdrop-blur-sm border-0 shadow-xl overflow-hidden relative">
+            {/* Background Pattern */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-violet-400/20 to-purple-500/20 rounded-full -translate-y-20 translate-x-20"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-300/20 to-pink-400/20 rounded-full translate-y-16 -translate-x-16"></div>
+            
+            <CardHeader className="relative z-10">
+              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl shadow-lg">
+                  <Store className="w-8 h-8 text-white" />
+                </div>
+                <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">Store Management</span>
+              </CardTitle>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">
+                Manage store listings, verify ownership, and monitor store performance.
+              </p>
+            </CardHeader>
+          </Card>
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-between">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
