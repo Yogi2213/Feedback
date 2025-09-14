@@ -10,13 +10,18 @@ import {
   Search, 
   Edit,
   Trash2,
-  Eye
+  Eye,
+  Award,
+  BarChart3
 } from 'lucide-react';
 import Modal from '../components/Modal';
 import CreateUserForm from '../components/CreateUserForm';
 import CreateStoreForm from '../components/CreateStoreForm';
 import UserDetailsModal from '../components/UserDetailsModal';
 import { BarChart, DonutChart, GrowthChart } from '../components/Charts';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
 import toast from 'react-hot-toast';
 
 const AdminDashboard = () => {
@@ -140,196 +145,306 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="container py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-        <p className="text-gray-600">Welcome back, {user?.name}</p>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/15 to-cyan-600/15 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Tabs */}
-      <div className="mb-6">
-        <nav className="flex space-x-8">
-          {[
-            { id: 'dashboard', label: 'Dashboard', icon: TrendingUp },
-            { id: 'users', label: 'Users', icon: Users },
-            { id: 'stores', label: 'Stores', icon: Store }
-          ].map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
+      <div className="relative container py-8">
+        {/* Enhanced Header */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500/10 to-orange-500/10 dark:from-red-400/20 dark:to-orange-400/20 rounded-full mb-6 border border-red-200/50 dark:border-red-400/30 backdrop-blur-sm">
+            <Award className="w-5 h-5 text-red-600 dark:text-red-400 animate-pulse" />
+            <span className="text-sm font-semibold text-red-700 dark:text-red-300">Administrator Portal</span>
+          </div>
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-red-800 to-orange-800 dark:from-white dark:via-red-200 dark:to-orange-200 bg-clip-text text-transparent mb-4">
+            Admin Dashboard
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Welcome back, {user?.name}! Manage your platform with powerful tools and insights.
+          </p>
+        </div>
+
+        {/* Enhanced Tabs */}
+        <Card className="mb-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+          <CardContent className="p-6">
+            <nav className="flex flex-wrap gap-2">
+              {[
+                { id: 'dashboard', label: 'Dashboard', icon: TrendingUp, color: 'from-blue-500 to-indigo-600' },
+                { id: 'users', label: 'Users', icon: Users, color: 'from-green-500 to-emerald-600' },
+                { id: 'stores', label: 'Stores', icon: Store, color: 'from-purple-500 to-pink-600' }
+              ].map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <Button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    variant={activeTab === tab.id ? "default" : "ghost"}
+                    className={`flex items-center gap-3 py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 ${
+                      activeTab === tab.id
+                        ? `bg-gradient-to-r ${tab.color} text-white shadow-lg hover:shadow-xl transform hover:scale-105`
+                        : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    {tab.label}
+                  </Button>
+                );
+              })}
+            </nav>
+          </CardContent>
+        </Card>
 
       {/* Dashboard Tab */}
       {activeTab === 'dashboard' && dashboardData && (
         <div className="space-y-8 animate-fadeIn">
-          {/* Statistics Cards */}
+          {/* Enhanced Statistics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="card group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="flex items-center">
-                <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
-                  <Users className="w-7 h-7 text-white" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Users</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    {dashboardData.statistics.totalUsers}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="flex items-center">
-                <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg group-hover:shadow-green-500/25 transition-all duration-300">
-                  <Store className="w-7 h-7 text-white" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Stores</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                    {dashboardData.statistics.totalStores}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="flex items-center">
-                <div className="p-3 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl shadow-lg group-hover:shadow-yellow-500/25 transition-all duration-300">
-                  <Star className="w-7 h-7 text-white" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Ratings</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                    {dashboardData.statistics.totalRatings}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="flex items-center">
-                <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300">
-                  <TrendingUp className="w-7 h-7 text-white" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">Avg Rating</p>
-                  <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    {dashboardData.statistics.averageRating.toFixed(1)}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Users and Stores */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="card">
-              <h3 className="text-lg font-semibold mb-4">Recent Users</h3>
-              <div className="space-y-3">
-                {dashboardData.recentUsers.map((user) => (
-                  <div key={user.id} className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-gray-600">{user.email}</p>
-                    </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${getRoleColor(user.role)}`}>
-                      {user.role}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 className="text-lg font-semibold mb-4">Recent Stores</h3>
-              <div className="space-y-3">
-                {dashboardData.recentStores.map((store) => (
-                  <div key={store.id} className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">{store.name}</p>
-                      <p className="text-sm text-gray-600">{store.address}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium">{store.avgRating.toFixed(1)} ⭐</p>
-                      <p className="text-xs text-gray-600">{store.owner.name}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Top Rated Stores */}
-          <div className="card">
-            <h3 className="text-lg font-semibold mb-4">Top Rated Stores</h3>
-            <div className="space-y-3">
-              {dashboardData.topRatedStores.map((store) => (
-                <div key={store.id} className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{store.name}</p>
-                    <p className="text-sm text-gray-600">{store.address}</p>
+            <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-blue-500/10 to-indigo-600/5 dark:from-blue-400/20 dark:to-indigo-500/10 border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Users className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium">{store.avgRating.toFixed(1)} ⭐</p>
-                    <p className="text-xs text-gray-600">{store._count.ratings} ratings</p>
+                    <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                      {dashboardData.statistics.totalUsers}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Users</div>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Active users</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-green-500/10 to-emerald-600/5 dark:from-green-400/20 dark:to-emerald-500/10 border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Store className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                      {dashboardData.statistics.totalStores}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Stores</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Registered stores</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-yellow-500/10 to-orange-500/5 dark:from-yellow-400/20 dark:to-orange-500/10 border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-4 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Star className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                      {dashboardData.statistics.totalRatings}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Total Ratings</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Customer feedback</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-purple-500/10 to-pink-500/5 dark:from-purple-400/20 dark:to-pink-500/10 border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <TrendingUp className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      {dashboardData.statistics.averageRating.toFixed(1)}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">Avg Rating</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">Platform quality</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Analytics Charts */}
+          {/* Enhanced Recent Users and Stores */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <Users className="w-6 h-6 text-blue-600" />
+                  Recent Users
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-4">
+                  {dashboardData.recentUsers.map((user, index) => (
+                    <div key={user.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-700/50 dark:to-blue-900/20 rounded-xl hover:shadow-lg transition-all duration-300 group">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform duration-300">
+                          {user.name.charAt(0)}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 dark:text-white">{user.name}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{user.email}</p>
+                        </div>
+                      </div>
+                      <Badge className={`text-xs font-semibold ${getRoleColor(user.role)}`}>
+                        {user.role.replace('_', ' ')}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <Store className="w-6 h-6 text-green-600" />
+                  Recent Stores
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-4">
+                  {dashboardData.recentStores.map((store, index) => (
+                    <div key={store.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-green-50/50 dark:from-gray-700/50 dark:to-green-900/20 rounded-xl hover:shadow-lg transition-all duration-300 group">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform duration-300">
+                          {store.name.charAt(0)}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900 dark:text-white">{store.name}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{store.address}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center gap-1 mb-1">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="text-sm font-bold text-gray-900 dark:text-white">{store.avgRating.toFixed(1)}</span>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">{store.owner.name}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Enhanced Top Rated Stores */}
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Award className="w-6 h-6 text-yellow-600" />
+                Top Rated Stores
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="space-y-4">
+                {dashboardData.topRatedStores.map((store, index) => (
+                  <div key={store.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-yellow-50/50 dark:from-gray-700/50 dark:to-yellow-900/20 rounded-xl hover:shadow-lg transition-all duration-300 group">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full text-white font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-white">{store.name}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{store.address}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="flex items-center gap-1 mb-1">
+                        <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                        <span className="text-lg font-bold text-gray-900 dark:text-white">{store.avgRating.toFixed(1)}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{store._count.ratings} ratings</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Enhanced Analytics Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* User Role Distribution Chart */}
-            <div className="card">
-              <DonutChart
-                title="User Role Distribution"
-                data={dashboardData.userRoleDistribution.map(role => ({
-                  label: role.role.replace('_', ' '),
-                  value: role._count.role
-                }))}
-              />
-            </div>
+            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <Users className="w-6 h-6 text-purple-600" />
+                  User Role Distribution
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <DonutChart
+                  title="User Role Distribution"
+                  data={dashboardData.userRoleDistribution.map(role => ({
+                    label: role.role.replace('_', ' '),
+                    value: role._count.role
+                  }))}
+                />
+              </CardContent>
+            </Card>
 
             {/* Platform Growth Metrics */}
-            <div className="card">
-              <GrowthChart
-                title="Platform Growth"
-                data={[
-                  { label: 'Total Users', value: dashboardData.statistics.totalUsers, change: 12 },
-                  { label: 'Total Stores', value: dashboardData.statistics.totalStores, change: 8 },
-                  { label: 'Total Ratings', value: dashboardData.statistics.totalRatings, change: 15 },
-                  { label: 'Avg Rating', value: dashboardData.statistics.averageRating.toFixed(1), change: 3 }
-                ]}
-              />
-            </div>
+            <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
+                  Platform Growth
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <GrowthChart
+                  title="Platform Growth"
+                  data={[
+                    { label: 'Total Users', value: dashboardData.statistics.totalUsers, change: 12 },
+                    { label: 'Total Stores', value: dashboardData.statistics.totalStores, change: 8 },
+                    { label: 'Total Ratings', value: dashboardData.statistics.totalRatings, change: 15 },
+                    { label: 'Avg Rating', value: dashboardData.statistics.averageRating.toFixed(1), change: 3 }
+                  ]}
+                />
+              </CardContent>
+            </Card>
           </div>
 
           {/* Top Stores Performance Chart */}
-          <div className="card">
-            <BarChart
-              title="Top Stores by Rating Count"
-              data={dashboardData.topRatedStores.slice(0, 5).map(store => ({
-                label: store.name.substring(0, 10) + '...',
-                value: store._count.ratings
-              }))}
-            />
-          </div>
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <BarChart3 className="w-6 h-6 text-blue-600" />
+                Top Stores by Rating Count
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <BarChart
+                title="Top Stores by Rating Count"
+                data={dashboardData.topRatedStores.slice(0, 5).map(store => ({
+                  label: store.name.substring(0, 10) + '...',
+                  value: store._count.ratings
+                }))}
+              />
+            </CardContent>
+          </Card>
         </div>
       )}
 
@@ -528,6 +643,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

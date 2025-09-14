@@ -154,66 +154,94 @@ const StoreOwnerDashboard = () => {
           <p className="text-gray-600 dark:text-gray-300 text-lg">Here's how your stores are performing today</p>
         </div>
 
-        {/* Quick Stats Overview */}
+        {/* Enhanced Quick Stats Overview */}
         {selectedStore && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 dark:from-blue-400/20 dark:to-blue-500/10 p-6 hover:shadow-xl transition-all duration-300 group">
+            <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 dark:from-blue-400/20 dark:to-blue-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Star className="w-6 h-6 text-white" />
+                  <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Star className="w-8 h-8 text-white" />
                   </div>
-                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <div className="text-right">
+                    <TrendingUp className="w-6 h-6 text-green-500 mb-1" />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
                   {averageRating.toFixed(1)}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Average Rating</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Average Rating</p>
+                <div className="mt-2 flex items-center gap-1">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <span className="text-xs text-gray-500 dark:text-gray-400">out of 5</span>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 dark:from-purple-400/20 dark:to-purple-500/10 p-6 hover:shadow-xl transition-all duration-300 group">
+            <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 dark:from-purple-400/20 dark:to-purple-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Users className="w-6 h-6 text-white" />
+                  <div className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Users className="w-8 h-8 text-white" />
                   </div>
-                  <Activity className="w-5 h-5 text-blue-500" />
+                  <div className="text-right">
+                    <Activity className="w-6 h-6 text-blue-500 mb-1" />
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                   {totalRatings}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Total Reviews</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Total Reviews</p>
+                <div className="mt-2 flex items-center gap-1">
+                  <MessageSquare className="w-4 h-4 text-purple-500" />
+                  <span className="text-xs text-gray-500 dark:text-gray-400">customer feedback</span>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 dark:from-green-400/20 dark:to-green-500/10 p-6 hover:shadow-xl transition-all duration-300 group">
+            <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 dark:from-green-400/20 dark:to-green-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Award className="w-6 h-6 text-white" />
+                  <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Award className="w-8 h-8 text-white" />
                   </div>
-                  <Zap className="w-5 h-5 text-yellow-500" />
+                  <div className="text-right">
+                    <Zap className="w-6 h-6 text-yellow-500 mb-1" />
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
                   {ratingDistribution[5]}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">5-Star Reviews</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">5-Star Reviews</p>
+                <div className="mt-2 flex items-center gap-1">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <span className="text-xs text-gray-500 dark:text-gray-400">excellent ratings</span>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-pink-500/10 to-pink-600/5 dark:from-pink-400/20 dark:to-pink-500/10 p-6 hover:shadow-xl transition-all duration-300 group">
+            <Card className="bg-gradient-to-br from-pink-500/10 to-pink-600/5 dark:from-pink-400/20 dark:to-pink-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Heart className="w-6 h-6 text-white" />
+                  <div className="p-4 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Heart className="w-8 h-8 text-white" />
                   </div>
-                  <Target className="w-5 h-5 text-purple-500" />
+                  <div className="text-right">
+                    <Target className="w-6 h-6 text-purple-500 mb-1" />
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-2">
                   {((ratingDistribution[5] + ratingDistribution[4]) / Math.max(totalRatings, 1) * 100).toFixed(0)}%
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Satisfaction Rate</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Satisfaction Rate</p>
+                <div className="mt-2 flex items-center gap-1">
+                  <Heart className="w-4 h-4 text-pink-500" />
+                  <span className="text-xs text-gray-500 dark:text-gray-400">happy customers</span>
+                </div>
               </CardContent>
             </Card>
           </div>

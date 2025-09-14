@@ -8,8 +8,17 @@ import {
   Filter,
   StarIcon,
   Store,
-  MessageSquare
+  MessageSquare,
+  Sparkles,
+  TrendingUp,
+  Award,
+  Heart
 } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import FeedbackCard from '../components/FeedbackCard';
+import StarRating from '../components/StarRating';
 import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
@@ -117,30 +126,49 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="container py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Store Directory</h1>
-        <p className="text-gray-600">Discover and rate stores in your area</p>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/15 to-cyan-600/15 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Search and Filters */}
-      <div className="mb-6 space-y-4">
-        <div className="flex flex-col sm:flex-row gap-4">
+      <div className="relative container py-8">
+        {/* Enhanced Header */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 rounded-full mb-6 border border-blue-200/50 dark:border-blue-400/30 backdrop-blur-sm">
+            <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-pulse" />
+            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">Store Discovery Platform</span>
+          </div>
+          
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-4">
+            Store Directory
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Discover amazing stores and share your experiences with our community
+          </p>
+        </div>
+
+        {/* Enhanced Search and Filters */}
+        <Card className="mb-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+          <CardContent className="p-6">
+            <div className="space-y-6">
+              <div className="flex flex-col lg:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
               placeholder="Search stores by name or address..."
-              className="form-input pl-10 w-full"
+                    className="w-full pl-12 pr-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm text-lg transition-all duration-200 focus:shadow-lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           
-          <div className="flex gap-2">
+                <div className="flex gap-3">
             <select
-              className="form-input"
+                    className="px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm transition-all duration-200 focus:shadow-lg"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
@@ -150,7 +178,7 @@ const UserDashboard = () => {
             </select>
             
             <select
-              className="form-input"
+                    className="px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm transition-all duration-200 focus:shadow-lg"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
@@ -160,147 +188,102 @@ const UserDashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <span className="text-sm text-gray-600">Filter by rating:</span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                  <Filter className="w-4 h-4" />
+                  Filter by rating:
+                </span>
           {['', '4', '3', '2', '1'].map((rating) => (
-            <button
+                  <Button
               key={rating}
               onClick={() => setRatingFilter(rating)}
-              className={`px-3 py-1 text-sm rounded-full border ${
+                    variant={ratingFilter === rating ? "default" : "outline"}
+                    className={`px-4 py-2 rounded-full transition-all duration-300 ${
                 ratingFilter === rating
-                  ? 'bg-blue-100 text-blue-800 border-blue-300'
-                  : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
-              }`}
-            >
-              {rating ? `${rating}+ ⭐` : 'All Ratings'}
-            </button>
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    {rating ? (
+                      <div className="flex items-center gap-1">
+                        <span>{rating}+</span>
+                        <Star className="w-4 h-4" />
+                      </div>
+                    ) : (
+                      'All Ratings'
+                    )}
+                  </Button>
           ))}
         </div>
       </div>
+          </CardContent>
+        </Card>
 
       {/* Stores Grid */}
       {stores.length === 0 ? (
-        <div className="text-center py-12">
-          <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No stores found</h3>
-          <p className="text-gray-600">
+          <Card className="text-center py-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+            <CardContent className="p-0">
+              <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Store className="w-12 h-12 text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">No stores found</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-lg">
             {searchTerm || ratingFilter 
               ? 'Try adjusting your search criteria'
               : 'No stores are available at the moment'
             }
           </p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stores.map((store) => (
-            <div key={store.id} className="card hover:shadow-lg transition-shadow">
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {store.name}
-                </h3>
-                
-                <div className="flex items-center gap-2 text-gray-600 mb-2">
-                  <MapPin className="w-4 h-4" />
-                  <span className="text-sm">{store.address}</span>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm text-gray-600">Overall Rating:</span>
-                  <div className="flex items-center gap-1">
-                    {renderStars(Math.round(store.avgRating))}
-                    <span className="text-sm font-medium text-gray-700">
-                      ({store.avgRating.toFixed(1)})
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t pt-4">
-                <div className="mb-3">
-                  <p className="text-sm text-gray-600 mb-2">Your Rating:</p>
-                  {store.userRating ? (
-                    <div>
-                      <div className="flex items-center gap-2">
-                        {renderStars(store.userRating)}
-                        <span className="text-sm text-gray-600">
-                          ({store.userRating}/5)
-                        </span>
-                      </div>
-                      {store.userComment && (
-                        <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
-                          <MessageSquare className="w-4 h-4" />
-                          <p className="italic">"{store.userComment}"</p>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-500">Not rated yet</p>
-                  )}
-                </div>
-
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const pending = pendingRatings[store.id];
-                  const currentRating = pending?.rating || store.userRating;
-                  const currentComment = pending?.comment !== undefined ? pending.comment : store.userComment;
-                  
-                  if (currentRating) {
-                    handleRatingSubmit(store.id, currentRating, currentComment);
-                  } else {
-                    toast.error('Please select a star rating first.');
-                  }
-                }}>
-                  <p className="text-sm text-gray-600 mb-2">{store.userRating ? 'Update your rating:' : 'Rate this store:'}</p>
-                  <div className="flex items-center gap-1 mb-2">
-                    {renderStars(
-                      pendingRatings[store.id]?.rating !== undefined 
-                        ? pendingRatings[store.id].rating 
-                        : store.userRating || 0, 
-                      true, 
-                      (rating) => setPendingRatings(prev => ({...prev, [store.id]: {...(prev[store.id] || {}), rating}}))
-                    )}
-                  </div>
-                  <textarea
-                    className="form-input w-full text-sm"
-                    rows="2"
-                    placeholder="Add a comment (optional)"
-                    value={
-                      pendingRatings[store.id]?.comment !== undefined 
-                        ? pendingRatings[store.id].comment 
-                        : store.userComment || ''
-                    }
-                    onChange={(e) => 
-                      setPendingRatings(prev => ({...prev, [store.id]: {...(prev[store.id] || {}), comment: e.target.value}}))
-                    }
-                  />
-                  <div className="flex gap-2 mt-2">
-                    <button type="submit" className="btn btn-primary btn-sm">
-                      {store.userRating ? 'Update Rating' : 'Submit Rating'}
-                    </button>
-                    {(pendingRatings[store.id]?.rating !== undefined || pendingRatings[store.id]?.comment !== undefined) && (
-                      <button 
-                        type="button" 
-                        onClick={() => setPendingRatings(prev => {
-                          const updated = { ...prev };
-                          delete updated[store.id];
-                          return updated;
-                        })}
-                        className="btn btn-secondary btn-sm"
-                      >
-                        Reset
-                      </button>
-                    )}
-                  </div>
-                </form>
-              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {stores.map((store, index) => (
+              <div 
+                key={store.id} 
+                className="animate-fadeIn"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <FeedbackCard
+                  store={store}
+                  userRating={store.userRating}
+                  onRatingSubmit={handleRatingSubmit}
+                  pendingRatings={pendingRatings}
+                  setPendingRatings={setPendingRatings}
+                />
             </div>
           ))}
         </div>
       )}
 
-      {/* Stats */}
-      <div className="mt-8 text-center text-gray-600">
-        <p>Showing {stores.length} stores</p>
+        {/* Enhanced Stats */}
+        <Card className="mt-12 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-400/20 dark:via-purple-400/20 dark:to-pink-400/20 border-0 shadow-xl">
+          <CardContent className="p-6 text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <span className="text-lg font-semibold text-gray-900 dark:text-white">Platform Statistics</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+                  {stores.length}
+                </div>
+                <div className="text-gray-600 dark:text-gray-300">Stores Available</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+                  {stores.reduce((sum, store) => sum + store.avgRating, 0) / Math.max(stores.length, 1) || 0}
+                </div>
+                <div className="text-gray-600 dark:text-gray-300">Average Rating</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-1">
+                  {stores.filter(store => store.userRating).length}
+                </div>
+                <div className="text-gray-600 dark:text-gray-300">Your Reviews</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
