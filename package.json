@@ -1,0 +1,35 @@
+{
+    "name": "store-rating-platform",
+    "version": "1.0.0",
+    "description": "A fullstack MVP web application for a store rating platform",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:start\"",
+        "backend:dev": "cd backend && npm run dev",
+        "backend:start": "cd backend && npm start",
+        "backend:install": "cd backend && npm install",
+        "backend:db:generate": "cd backend && npm run db:generate",
+        "backend:db:push": "cd backend && npm run db:push",
+        "backend:db:seed": "cd backend && npm run db:seed",
+        "frontend:start": "cd frontend && npm start",
+        "frontend:build": "cd frontend && npm run build",
+        "frontend:install": "cd frontend && npm install",
+        "install:all": "npm run backend:install && npm run frontend:install",
+        "setup": "npm run install:all && npm run backend:db:generate && npm run backend:db:push && npm run backend:db:seed",
+        "build": "npm run frontend:build",
+        "start": "npm run backend:start"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    },
+    "keywords": [
+        "store",
+        "rating",
+        "platform",
+        "react",
+        "express",
+        "prisma"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+}
