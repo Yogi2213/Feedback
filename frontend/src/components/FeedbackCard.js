@@ -62,133 +62,165 @@ const FeedbackCard = ({
   };
 
   return (
-    <Card className="group hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-800 dark:via-blue-900/20 dark:to-purple-900/20 border-0 shadow-lg overflow-hidden">
+    <Card className="group hover:shadow-3xl transition-all duration-700 hover:scale-[1.03] bg-gradient-to-br from-white via-blue-50/40 to-purple-50/40 dark:from-gray-800 dark:via-blue-900/30 dark:to-purple-900/30 border-0 shadow-xl overflow-hidden rounded-3xl relative">
+      {/* Decorative corner elements */}
+      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-full blur-xl animate-pulse opacity-60"></div>
+      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-br from-pink-400/20 to-red-500/20 rounded-full blur-xl animate-pulse delay-500 opacity-60"></div>
+      
       {/* Header with Store Info */}
-      <CardHeader className="pb-4 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-400/20 dark:via-purple-400/20 dark:to-pink-400/20">
+      <CardHeader className="pb-6 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 dark:from-blue-400/25 dark:via-purple-400/25 dark:to-pink-400/25 relative">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-              {store.name}
-            </CardTitle>
-            
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-3">
-              <MapPin className="w-4 h-4 text-blue-500" />
-              <span className="text-sm">{store.address}</span>
+            <div className="flex items-center gap-3 mb-3">
+              <CardTitle className="text-2xl font-black text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                🏪 {store.name}
+              </CardTitle>
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
             </div>
             
-            {/* Overall Rating Display */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${getRatingColor(store.avgRating)} text-white text-sm font-bold shadow-lg`}>
-                  {store.avgRating.toFixed(1)}
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-4 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full backdrop-blur-sm">
+              <MapPin className="w-5 h-5 text-blue-500" />
+              <span className="text-sm font-medium">📍 {store.address}</span>
+            </div>
+            
+            {/* Enhanced Overall Rating Display */}
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className={`px-4 py-2 rounded-2xl bg-gradient-to-r ${getRatingColor(store.avgRating)} text-white text-lg font-black shadow-xl transform group-hover:scale-110 transition-all duration-300`}>
+                  ⭐ {store.avgRating.toFixed(1)}
                 </div>
                 <StarRating 
                   rating={Math.round(store.avgRating)} 
-                  size="sm" 
-                  className="opacity-90"
+                  size="md" 
+                  className="opacity-95"
                 />
               </div>
-              <Badge variant="secondary" className="text-xs font-medium">
-                {getRatingText(store.avgRating)}
+              <Badge variant="secondary" className="text-sm font-bold px-3 py-1 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-full">
+                🎯 {getRatingText(store.avgRating)}
               </Badge>
             </div>
           </div>
           
-          {/* Decorative Elements */}
-          <div className="flex flex-col items-end gap-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-              <Award className="w-6 h-6 text-white" />
+          {/* Enhanced Decorative Elements */}
+          <div className="flex flex-col items-end gap-3">
+            <div className="relative">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-bounce"></div>
             </div>
-            <div className="flex gap-1">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-75"></div>
-              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse delay-150"></div>
+            <div className="flex gap-2">
+              <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse shadow-lg"></div>
+              <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse delay-75 shadow-lg"></div>
+              <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse delay-150 shadow-lg"></div>
+            </div>
+            <div className="text-xs font-bold text-gray-500 dark:text-gray-400 bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-full">
+              #{store.id}
             </div>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="p-6">
-        {/* Current User Rating Display */}
-        <div className="mb-6 p-4 bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-700/50 dark:to-blue-900/20 rounded-xl border border-gray-200/50 dark:border-gray-600/50">
-          <div className="flex items-center gap-2 mb-3">
-            <Heart className="w-5 h-5 text-red-500" />
-            <span className="font-semibold text-gray-900 dark:text-white">Your Rating</span>
+      <CardContent className="p-8">
+        {/* Enhanced Current User Rating Display */}
+        <div className="mb-8 p-6 bg-gradient-to-br from-gray-50 via-blue-50/60 to-purple-50/60 dark:from-gray-700/60 dark:via-blue-900/30 dark:to-purple-900/30 rounded-2xl border-2 border-gray-200/60 dark:border-gray-600/60 shadow-lg">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full shadow-lg">
+              <Heart className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-bold text-lg text-gray-900 dark:text-white">💝 Your Rating</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-gray-300 to-transparent dark:from-gray-600"></div>
           </div>
           
           {userRating ? (
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 justify-center">
                 <StarRating 
                   rating={userRating} 
-                  size="md" 
+                  size="lg" 
                   showLabel={true}
                 />
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 text-white">
-                  Rated
+                <Badge className="bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 text-white px-4 py-2 text-sm font-bold rounded-full shadow-lg">
+                  ✅ Rated
                 </Badge>
               </div>
               {store.userComment && (
-                <div className="bg-white/70 dark:bg-gray-800/50 p-3 rounded-lg border-l-4 border-green-400">
-                  <div className="flex items-start gap-2">
-                    <MessageSquare className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                    <p className="text-sm text-gray-700 dark:text-gray-300 italic">
-                      "{store.userComment}"
+                <div className="bg-gradient-to-r from-white/80 to-green-50/80 dark:from-gray-800/60 dark:to-green-900/30 p-4 rounded-2xl border-l-4 border-green-400 shadow-lg">
+                  <div className="flex items-start gap-3">
+                    <div className="p-1 bg-green-500 rounded-full">
+                      <MessageSquare className="w-4 h-4 text-white" />
+                    </div>
+                    <p className="text-base text-gray-700 dark:text-gray-300 italic font-medium leading-relaxed">
+                      "💬 {store.userComment}"
                     </p>
                   </div>
                 </div>
               )}
             </div>
           ) : (
-            <div className="text-center py-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Star className="w-8 h-8 text-gray-400" />
+            <div className="text-center py-6">
+              <div className="relative mb-4">
+                <div className="w-20 h-20 bg-gradient-to-br from-gray-100 via-blue-100 to-purple-100 dark:from-gray-700 dark:via-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                  <Star className="w-10 h-10 text-gray-400 dark:text-gray-300" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full animate-bounce opacity-80"></div>
               </div>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">You haven't rated this store yet</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">🌟 You haven't rated this store yet</p>
+              <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">Share your experience below!</p>
             </div>
           )}
         </div>
 
-        {/* Rating Form */}
-        <form onSubmit={handleRatingSubmit} className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <Sparkles className="w-5 h-5 text-yellow-500" />
-            <span className="font-semibold text-gray-900 dark:text-white">
-              {userRating ? 'Update Your Rating' : 'Rate This Store'}
+        {/* Enhanced Rating Form */}
+        <form onSubmit={handleRatingSubmit} className="space-y-6">
+          <div className="flex items-center gap-3 mb-6 justify-center">
+            <div className="p-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full shadow-lg animate-pulse">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-bold text-xl text-gray-900 dark:text-white">
+              {userRating ? '🔄 Update Your Rating' : '⭐ Rate This Store'}
             </span>
           </div>
           
-          {/* Star Rating Input */}
-          <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200/50 dark:border-yellow-700/50">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Rating:</span>
-            <StarRating
-              rating={
-                pendingRatings[store.id]?.rating !== undefined 
-                  ? pendingRatings[store.id].rating 
-                  : userRating || 0
-              }
-              onRatingChange={(rating) => 
-                setPendingRatings(prev => ({
-                  ...prev, 
-                  [store.id]: {...(prev[store.id] || {}), rating}
-                }))
-              }
-              interactive={true}
-              size="lg"
-              showLabel={true}
-            />
+          {/* Enhanced Star Rating Input */}
+          <div className="p-6 bg-gradient-to-br from-yellow-50 via-orange-50/60 to-red-50/60 dark:from-yellow-900/30 dark:via-orange-900/30 dark:to-red-900/30 rounded-2xl border-2 border-yellow-200/60 dark:border-yellow-700/60 shadow-lg">
+            <div className="text-center mb-4">
+              <span className="text-lg font-bold text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2">
+                🌟 Your Rating:
+              </span>
+            </div>
+            <div className="flex justify-center">
+              <StarRating
+                rating={
+                  pendingRatings[store.id]?.rating !== undefined 
+                    ? pendingRatings[store.id].rating 
+                    : userRating || 0
+                }
+                onRatingChange={(rating) => 
+                  setPendingRatings(prev => ({
+                    ...prev, 
+                    [store.id]: {...(prev[store.id] || {}), rating}
+                  }))
+                }
+                interactive={true}
+                size="xl"
+                showLabel={true}
+              />
+            </div>
           </div>
           
-          {/* Comment Input */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" />
-              Add a comment (optional)
+          {/* Enhanced Comment Input */}
+          <div className="space-y-4">
+            <label className="text-lg font-bold text-gray-700 dark:text-gray-300 flex items-center gap-3 justify-center">
+              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+                <MessageSquare className="w-5 h-5 text-white" />
+              </div>
+              💬 Add a comment (optional)
             </label>
             <textarea
-              className="w-full p-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm resize-none transition-all duration-200 focus:shadow-lg"
-              rows="3"
-              placeholder="Share your experience with this store..."
+              className="w-full p-6 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md resize-none transition-all duration-300 focus:shadow-2xl hover:shadow-lg text-lg placeholder-gray-400 font-medium"
+              rows="4"
+              placeholder="✨ Share your experience with this store... What made it special?"
               value={
                 pendingRatings[store.id]?.comment !== undefined 
                   ? pendingRatings[store.id].comment 
@@ -203,22 +235,22 @@ const FeedbackCard = ({
             />
           </div>
           
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-2">
+          {/* Enhanced Action Buttons */}
+          <div className="flex gap-4 pt-4">
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed text-lg"
             >
               {isSubmitting ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Submitting...
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
+                  🚀 Submitting...
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
-                  <ThumbsUp className="w-4 h-4" />
-                  {userRating ? 'Update Rating' : 'Submit Rating'}
+                <div className="flex items-center gap-3">
+                  <ThumbsUp className="w-5 h-5" />
+                  {userRating ? '🔄 Update Rating' : '⭐ Submit Rating'}
                 </div>
               )}
             </Button>
@@ -232,9 +264,9 @@ const FeedbackCard = ({
                   delete updated[store.id];
                   return updated;
                 })}
-                className="px-6 py-3 rounded-xl border-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
+                className="px-8 py-4 rounded-2xl border-3 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 font-bold text-lg hover:scale-105 transform"
               >
-                Reset
+                🔄 Reset
               </Button>
             )}
           </div>

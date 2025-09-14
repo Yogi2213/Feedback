@@ -126,160 +126,254 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 relative overflow-hidden">
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/15 to-cyan-600/15 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/30 to-indigo-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/25 to-cyan-600/25 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-green-400/20 to-teal-500/20 rounded-full blur-2xl animate-bounce delay-700"></div>
+        {/* Floating particles */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping delay-300"></div>
+        <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-purple-400 rounded-full animate-ping delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-1 h-1 bg-pink-400 rounded-full animate-ping delay-500"></div>
       </div>
 
       <div className="relative container py-8">
-        {/* Enhanced Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 rounded-full mb-6 border border-blue-200/50 dark:border-blue-400/30 backdrop-blur-sm">
-            <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-pulse" />
-            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">Store Discovery Platform</span>
+        {/* Enhanced Header with Hero Section */}
+        <div className="text-center mb-16 relative">
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500/15 to-purple-500/15 dark:from-blue-400/25 dark:to-purple-400/25 rounded-full mb-8 border border-blue-200/60 dark:border-blue-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
+            <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400 animate-pulse group-hover:animate-spin" />
+            <span className="text-base font-bold text-blue-700 dark:text-blue-300 tracking-wide">🌟 Store Discovery Platform</span>
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           </div>
           
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-4">
-            Store Directory
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Discover amazing stores and share your experiences with our community
+          <div className="relative mb-6">
+            <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-2 tracking-tight">
+              Store Directory
+            </h1>
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce opacity-80"></div>
+            <div className="absolute -bottom-2 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-red-500 rounded-full animate-bounce delay-300 opacity-80"></div>
+          </div>
+          
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-medium">
+            🚀 Discover amazing stores and share your experiences with our vibrant community
           </p>
+          
+          {/* Stats Preview */}
+          <div className="flex justify-center items-center gap-8 mt-8 flex-wrap">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
+              <Store className="w-5 h-5 text-blue-600" />
+              <span className="font-semibold text-gray-700 dark:text-gray-300">{stores.length} Stores</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
+              <Heart className="w-5 h-5 text-red-500" />
+              <span className="font-semibold text-gray-700 dark:text-gray-300">{stores.filter(store => store.userRating).length} Reviews</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
+              <Award className="w-5 h-5 text-yellow-600" />
+              <span className="font-semibold text-gray-700 dark:text-gray-300">{(stores.reduce((sum, store) => sum + store.avgRating, 0) / Math.max(stores.length, 1) || 0).toFixed(1)} Avg Rating</span>
+            </div>
+          </div>
         </div>
 
         {/* Enhanced Search and Filters */}
-        <Card className="mb-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
-          <CardContent className="p-6">
-            <div className="space-y-6">
-              <div className="flex flex-col lg:flex-row gap-4">
-          <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <Card className="mb-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-400/10 dark:via-purple-400/10 dark:to-pink-400/10"></div>
+          <CardContent className="p-8 relative">
+            <div className="space-y-8">
+              <div className="flex flex-col lg:flex-row gap-6">
+          <div className="relative flex-1 group">
+                  <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 group-focus-within:text-blue-500 transition-colors duration-200" />
             <input
               type="text"
-              placeholder="Search stores by name or address..."
-                    className="w-full pl-12 pr-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm text-lg transition-all duration-200 focus:shadow-lg"
+              placeholder="🔍 Search stores by name or address..."
+                    className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md text-lg transition-all duration-300 focus:shadow-2xl hover:shadow-lg placeholder-gray-400 font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            </div>
           </div>
           
-                <div className="flex gap-3">
+                <div className="flex gap-4">
             <select
-                    className="px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm transition-all duration-200 focus:shadow-lg"
+                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
-              <option value="name">Sort by Name</option>
-              <option value="avgRating">Sort by Rating</option>
-              <option value="createdAt">Sort by Date</option>
+              <option value="name">📝 Sort by Name</option>
+              <option value="avgRating">⭐ Sort by Rating</option>
+              <option value="createdAt">📅 Sort by Date</option>
             </select>
             
             <select
-                    className="px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/70 dark:bg-gray-700/70 backdrop-blur-sm transition-all duration-200 focus:shadow-lg"
+                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
+              <option value="asc">⬆️ Ascending</option>
+              <option value="desc">⬇️ Descending</option>
             </select>
           </div>
         </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                  <Filter className="w-4 h-4" />
-                  Filter by rating:
-                </span>
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-800/50 dark:to-blue-900/20 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-600/50">
+                <div className="flex flex-wrap items-center gap-4">
+                  <span className="text-base font-bold text-gray-700 dark:text-gray-300 flex items-center gap-3">
+                    <Filter className="w-5 h-5 text-blue-600" />
+                    🎯 Filter by rating:
+                  </span>
           {['', '4', '3', '2', '1'].map((rating) => (
-                  <Button
+                    <Button
               key={rating}
               onClick={() => setRatingFilter(rating)}
-                    variant={ratingFilter === rating ? "default" : "outline"}
-                    className={`px-4 py-2 rounded-full transition-all duration-300 ${
+                      variant={ratingFilter === rating ? "default" : "outline"}
+                      className={`px-6 py-3 rounded-full transition-all duration-300 font-semibold transform hover:scale-105 ${
                 ratingFilter === rating
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                    }`}
-                  >
-                    {rating ? (
-                      <div className="flex items-center gap-1">
-                        <span>{rating}+</span>
-                        <Star className="w-4 h-4" />
-                      </div>
-                    ) : (
-                      'All Ratings'
-                    )}
-                  </Button>
+                          ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-xl border-0'
+                          : 'hover:bg-white dark:hover:bg-gray-700 hover:shadow-lg border-2 border-gray-300 dark:border-gray-600'
+                      }`}
+                    >
+                      {rating ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{rating}+</span>
+                          <Star className="w-5 h-5 fill-current" />
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <span>🌟 All Ratings</span>
+                        </div>
+                      )}
+                    </Button>
           ))}
+          </div>
         </div>
       </div>
           </CardContent>
         </Card>
 
-      {/* Stores Grid */}
+      {/* Enhanced Stores Grid */}
       {stores.length === 0 ? (
-          <Card className="text-center py-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-xl">
+          <Card className="text-center py-20 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/80 dark:from-gray-800/90 dark:via-blue-900/50 dark:to-purple-900/50 backdrop-blur-md border-0 shadow-2xl rounded-3xl">
             <CardContent className="p-0">
-              <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Store className="w-12 h-12 text-gray-400" />
+              <div className="relative mb-8">
+                <div className="w-32 h-32 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-700 dark:via-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                  <Store className="w-16 h-16 text-gray-400 dark:text-gray-300" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce opacity-80"></div>
+                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-red-500 rounded-full animate-bounce delay-300 opacity-80"></div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">No stores found</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-lg">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent mb-4">🔍 No stores found</h3>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-md mx-auto leading-relaxed">
             {searchTerm || ratingFilter 
-              ? 'Try adjusting your search criteria'
-              : 'No stores are available at the moment'
+              ? '🎯 Try adjusting your search criteria to discover more stores'
+              : '🏪 No stores are available at the moment - check back soon!'
             }
           </p>
+              <div className="mt-8 flex justify-center">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
+                  <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce delay-100"></div>
+                  <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce delay-200"></div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {stores.map((store, index) => (
-              <div 
-                key={store.id} 
-                className="animate-fadeIn"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <FeedbackCard
-                  store={store}
-                  userRating={store.userRating}
-                  onRatingSubmit={handleRatingSubmit}
-                  pendingRatings={pendingRatings}
-                  setPendingRatings={setPendingRatings}
-                />
+          <div className="space-y-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <Store className="w-7 h-7 text-blue-600" />
+                🏪 Discover Stores ({stores.length})
+              </h2>
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full border border-green-200/50 dark:border-green-400/30">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-semibold text-green-700 dark:text-green-300">Live Results</span>
+              </div>
             </div>
-          ))}
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+              {stores.map((store, index) => (
+                <div 
+                  key={store.id} 
+                  className="animate-fadeIn transform hover:scale-[1.02] transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <FeedbackCard
+                    store={store}
+                    userRating={store.userRating}
+                    onRatingSubmit={handleRatingSubmit}
+                    pendingRatings={pendingRatings}
+                    setPendingRatings={setPendingRatings}
+                  />
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
-        {/* Enhanced Stats */}
-        <Card className="mt-12 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-400/20 dark:via-purple-400/20 dark:to-pink-400/20 border-0 shadow-xl">
-          <CardContent className="p-6 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">Platform Statistics</span>
+        {/* Enhanced Stats Dashboard */}
+        <Card className="mt-16 bg-gradient-to-br from-white/95 via-blue-50/90 to-purple-50/90 dark:from-gray-800/95 dark:via-blue-900/50 dark:to-purple-900/50 border-0 shadow-2xl rounded-3xl overflow-hidden backdrop-blur-md">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-400/10 dark:via-purple-400/10 dark:to-pink-400/10"></div>
+          <CardContent className="p-10 text-center relative">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">📊 Platform Statistics</span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                  {stores.length}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center group hover:scale-105 transition-all duration-300">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-xl mb-4 group-hover:shadow-2xl">
+                  <div className="text-4xl font-black mb-2">
+                    {stores.length}
+                  </div>
+                  <div className="text-blue-100 font-semibold">🏪 Stores Available</div>
                 </div>
-                <div className="text-gray-600 dark:text-gray-300">Stores Available</div>
+                <div className="flex justify-center">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-                  {stores.reduce((sum, store) => sum + store.avgRating, 0) / Math.max(stores.length, 1) || 0}
+              <div className="text-center group hover:scale-105 transition-all duration-300">
+                <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-2xl shadow-xl mb-4 group-hover:shadow-2xl">
+                  <div className="text-4xl font-black mb-2">
+                    {(stores.reduce((sum, store) => sum + store.avgRating, 0) / Math.max(stores.length, 1) || 0).toFixed(1)}
+                  </div>
+                  <div className="text-purple-100 font-semibold">⭐ Average Rating</div>
                 </div>
-                <div className="text-gray-600 dark:text-gray-300">Average Rating</div>
+                <div className="flex justify-center">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-100"></div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-1">
-                  {stores.filter(store => store.userRating).length}
+              <div className="text-center group hover:scale-105 transition-all duration-300">
+                <div className="bg-gradient-to-br from-pink-500 to-pink-600 text-white p-6 rounded-2xl shadow-xl mb-4 group-hover:shadow-2xl">
+                  <div className="text-4xl font-black mb-2">
+                    {stores.filter(store => store.userRating).length}
+                  </div>
+                  <div className="text-pink-100 font-semibold">💝 Your Reviews</div>
                 </div>
-                <div className="text-gray-600 dark:text-gray-300">Your Reviews</div>
+                <div className="flex justify-center">
+                  <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse delay-200"></div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Additional engagement section */}
+            <div className="mt-10 p-6 bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-800/50 dark:to-blue-900/20 rounded-2xl border border-gray-200/50 dark:border-gray-600/50">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Sparkles className="w-6 h-6 text-yellow-500 animate-pulse" />
+                <span className="text-lg font-bold text-gray-900 dark:text-white">🎉 Community Impact</span>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                Join our growing community of store explorers! Your reviews help others discover amazing places and support local businesses.
+              </p>
+              <div className="flex justify-center mt-4 gap-2">
+                <div className="w-1 h-1 bg-yellow-400 rounded-full animate-ping"></div>
+                <div className="w-1 h-1 bg-blue-400 rounded-full animate-ping delay-100"></div>
+                <div className="w-1 h-1 bg-purple-400 rounded-full animate-ping delay-200"></div>
+                <div className="w-1 h-1 bg-pink-400 rounded-full animate-ping delay-300"></div>
               </div>
             </div>
           </CardContent>
