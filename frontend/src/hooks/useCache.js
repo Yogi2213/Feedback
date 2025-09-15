@@ -180,20 +180,78 @@ export const useCache = (key, fetchFunction, options = {}) => {
 };
 
 // Hook for managing multiple cached queries
+// Note: This hook should only be used with a fixed number of queries
+// For dynamic queries, use individual useCache hooks instead
 export const useCacheQueries = (queries) => {
-  const results = queries.map(({ key, fetchFunction, options }) => 
-    useCache(key, fetchFunction, options)
-  );
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const loading = results.some(result => result.loading);
-  const error = results.find(result => result.error)?.error;
+  useEffect(() => {
+    const fetchAllQueries = async () => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const queryResults = await Promise.allSettled(
+          queries.map(async ({ key, fetchFunction, options = {} }) => {
+            const cacheKey = typeof key === 'function' ? key() : key;
+            
+            // Check cache first
+            const cachedData = globalCache.get(cacheKey);
+            if (cachedData) {
+              return { data: cachedData, loading: false, error: null };
+            }
+            
+            // Fetch data
+            try {
+              const data = await fetchFunction();
+              globalCache.set(cacheKey, data, options.ttl || 300000);
+              return { data, loading: false, error: null };
+            } catch (err) {
+              return { data: null, loading: false, error: err };
+            }
+          })
+        );
+        
+        const processedResults = queryResults.map(result => 
+          result.status === 'fulfilled' ? result.value : { data: null, loading: false, error: result.reason }
+        );
+        
+        setResults(processedResults);
+        setError(processedResults.find(r => r.error)?.error || null);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllQueries();
+  }, [JSON.stringify(queries.map(q => ({ key: q.key, options: q.options })))]);
+
+  const refetchAll = useCallback(() => {
+    queries.forEach(({ key }) => {
+      const cacheKey = typeof key === 'function' ? key() : key;
+      globalCache.delete(cacheKey);
+    });
+    // Trigger re-fetch by updating a dependency
+    setLoading(true);
+  }, [queries]);
+
+  const invalidateAll = useCallback(() => {
+    queries.forEach(({ key }) => {
+      const cacheKey = typeof key === 'function' ? key() : key;
+      globalCache.delete(cacheKey);
+    });
+  }, [queries]);
   
   return {
     results,
     loading,
     error,
-    refetchAll: () => results.forEach(result => result.refetch()),
-    invalidateAll: () => results.forEach(result => result.invalidate())
+    refetchAll,
+    invalidateAll
   };
 };
 
