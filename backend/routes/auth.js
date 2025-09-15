@@ -1,4 +1,6 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { generateToken, hashPassword, comparePassword } = require('../utils/auth');
 const { userValidation, validate } = require('../utils/validation');
 const { authenticate } = require('../middleware/auth');
@@ -85,60 +87,48 @@ router.post('/signup', validate(userValidation.signup), async (req, res) => {
 // @route   POST /api/auth/login
 // @desc    Login user
 // @access  Public
-router.post('/login', validate(userValidation.login), async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
+    console.log("👉 Login request body:", req.body);
+
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Email & password required" });
+    }
 
-    // Find user by email
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        password: true,
-        address: true,
-        role: true,
-        createdAt: true
-      }
-    });
-
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid email or password'
-      });
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
-    // Check password
-    const isPasswordValid = await comparePassword(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid email or password'
-      });
+    // bcrypt compare
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
 
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = user;
+    // jwt
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET || "fallback_secret",
+      { expiresIn: "1d" }
+    );
 
-    // Generate token
-    const token = generateToken({ userId: user.id, role: user.role });
-
-    res.json({
-      success: true,
-      message: 'Login successful',
+    res.json({ 
+      success: true, 
       data: {
-        user: userWithoutPassword,
-        token
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role
+        }
       }
     });
   } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Internal server error'
-    });
+    console.error("❌ Login error:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
 

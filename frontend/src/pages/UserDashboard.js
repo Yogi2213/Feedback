@@ -30,6 +30,8 @@ const UserDashboard = () => {
 
   // Optimized data fetching with caching and debouncing
   const fetchStores = async (params = {}) => {
+    console.log('🔄 Frontend: Fetching stores with params:', params);
+    
     const response = await storesAPI.getStores({
       search: params.search || '',
       sortBy,
@@ -38,13 +40,19 @@ const UserDashboard = () => {
       limit: params.limit || 20
     });
     
+    console.log('📡 Frontend: API response:', response);
+    console.log('📊 Frontend: Response data:', response.data);
+    
     if (response.data.success) {
       let stores = response.data.data.stores;
+      console.log('🏪 Frontend: Stores received:', stores);
+      console.log('📈 Frontend: Store count:', stores.length);
       
       // Apply rating filter
       if (ratingFilter) {
         const minRating = parseFloat(ratingFilter);
         stores = stores.filter(store => store.avgRating >= minRating);
+        console.log('🔍 Frontend: After rating filter:', stores.length);
       }
       
       return {
