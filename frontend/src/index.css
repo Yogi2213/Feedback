@@ -56,6 +56,19 @@ html.dark .card {
   box-shadow: 0 8px 25px 0 rgba(16, 185, 129, 0.5);
 }
 
+/* Background Gradient Animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .btn-secondary {
   @apply bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-semibold border border-gray-200;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
