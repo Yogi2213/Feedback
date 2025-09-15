@@ -137,7 +137,7 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
+        <Router future={{ v7_relativeSplatPath: true }}>
           <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter transition-colors">
             <Navbar />
             <main>

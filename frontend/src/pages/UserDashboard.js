@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { storesAPI, ratingsAPI } from '../services/api';
 import { useOptimizedFetch } from '../hooks/useOptimizedFetch';
 import { LoadingSpinner, SkeletonGrid, ErrorState, EmptyState } from '../components/LoadingStates';
-import { 
-  Search, 
-  Star, 
-  MapPin, 
-  Filter,
-  StarIcon,
+import {
   Store,
-  MessageSquare,
-  Sparkles,
+  Star,
+  Search,
+  Filter,
+  SortAsc,
+  SortDesc,
+  Clock,
+  Users,
   TrendingUp,
   Award,
   Heart
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
+import { Card, CardContent } from '../components/ui/card';
 import FeedbackCard from '../components/FeedbackCard';
-import StarRating from '../components/StarRating';
 import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
-  const { user } = useAuth();
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
   const [ratingFilter, setRatingFilter] = useState('');
@@ -32,9 +29,9 @@ const UserDashboard = () => {
   const [pendingRatings, setPendingRatings] = useState({});
 
   // Optimized data fetching with caching and debouncing
-  const fetchStores = async (params) => {
+  const fetchStores = async (params = {}) => {
     const response = await storesAPI.getStores({
-      search: params.search,
+      search: params.search || '',
       sortBy,
       sortOrder,
       page: params.page || 1,
@@ -118,7 +115,7 @@ const UserDashboard = () => {
             }`}
             disabled={!interactive}
           >
-            <StarIcon
+            <Star
               className={`w-5 h-5 ${
                 star <= rating
                   ? 'text-yellow-400 fill-current'
@@ -179,7 +176,7 @@ const UserDashboard = () => {
         {/* Enhanced Header with Hero Section */}
         <div className="text-center mb-16 relative">
           <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500/15 to-green-600/15 dark:from-pink-500/20 dark:to-pink-600/20 rounded-full mb-8 border border-green-200/60 dark:border-pink-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
-            <Sparkles className="w-6 h-6 text-green-600 dark:text-green-400 animate-pulse group-hover:animate-spin" />
+            <Star className="w-6 h-6 text-green-600 dark:text-green-400 animate-pulse group-hover:animate-spin" />
             <span className="text-base font-bold text-green-700 dark:text-pink-300 tracking-wide">🌟 Store Discovery Platform</span>
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           </div>
@@ -401,7 +398,7 @@ const UserDashboard = () => {
             {/* Additional engagement section */}
             <div className="mt-10 p-6 bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-800/50 dark:to-blue-900/20 rounded-2xl border border-gray-200/50 dark:border-gray-600/50">
               <div className="flex items-center justify-center gap-2 mb-4">
-                <Sparkles className="w-6 h-6 text-yellow-500 animate-pulse" />
+                <Star className="w-6 h-6 text-yellow-500 animate-pulse" />
                 <span className="text-lg font-bold text-gray-900 dark:text-white">🎉 Community Impact</span>
               </div>
               <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
