@@ -161,11 +161,11 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100 dark:from-gray-900 dark:via-slate-800 dark:to-green-900 relative overflow-hidden bg-animated">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter relative overflow-hidden">
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/30 to-emerald-600/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/30 to-indigo-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/20 to-green-600/20 dark:from-pink-400/20 dark:to-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-green-300/20 to-green-500/20 dark:from-pink-500/20 dark:to-pink-700/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/25 to-cyan-600/25 rounded-full blur-3xl animate-pulse delay-500"></div>
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-full blur-2xl animate-bounce"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-green-400/20 to-teal-500/20 rounded-full blur-2xl animate-bounce delay-700"></div>
@@ -178,9 +178,9 @@ const UserDashboard = () => {
       <div className="relative container py-8">
         {/* Enhanced Header with Hero Section */}
         <div className="text-center mb-16 relative">
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500/15 to-emerald-500/15 dark:from-green-400/25 dark:to-emerald-400/25 rounded-full mb-8 border border-green-200/60 dark:border-green-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500/15 to-green-600/15 dark:from-pink-500/20 dark:to-pink-600/20 rounded-full mb-8 border border-green-200/60 dark:border-pink-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
             <Sparkles className="w-6 h-6 text-green-600 dark:text-green-400 animate-pulse group-hover:animate-spin" />
-            <span className="text-base font-bold text-green-700 dark:text-green-300 tracking-wide">🌟 Store Discovery Platform</span>
+            <span className="text-base font-bold text-green-700 dark:text-pink-300 tracking-wide">🌟 Store Discovery Platform</span>
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           </div>
           
@@ -192,7 +192,7 @@ const UserDashboard = () => {
             <div className="absolute -bottom-2 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-red-500 rounded-full animate-bounce delay-300 opacity-80"></div>
           </div>
           
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-pink-300 max-w-3xl mx-auto leading-relaxed font-medium">
             🚀 Discover amazing stores and share your experiences with our vibrant community
           </p>
           
@@ -200,7 +200,7 @@ const UserDashboard = () => {
           <div className="flex justify-center items-center gap-8 mt-8 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
               <Store className="w-5 h-5 text-green-600" />
-              <span className="font-semibold text-gray-700 dark:text-gray-300">{stores.length} Stores</span>
+              <span className="font-semibold text-gray-700 dark:text-pink-300">{stores.length} Stores</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
               <Heart className="w-5 h-5 text-red-500" />

@@ -33,32 +33,21 @@ export const BarChart = ({ data, title, className = '' }) => {
 
 // Simple Line Chart Component (using CSS)
 export const LineChart = ({ data, title, className = '' }) => {
-  const maxValue = Math.max(...data.map(item => item.value));
-  const minValue = Math.min(...data.map(item => item.value));
-  const range = maxValue - minValue || 1;
-  
   return (
     <div className={`${className}`}>
       {title && <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{title}</h4>}
       <div className="relative h-32 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
         <div className="flex items-end justify-between h-full">
-          {data.map((item, index) => {
-            const height = ((item.value - minValue) / range) * 100;
-            return (
-              <div key={index} className="flex flex-col items-center gap-1">
-                <div className="text-xs text-gray-600 dark:text-gray-400">
-                  {item.value}
-                </div>
-                <div
-                  className="bg-green-500 dark:bg-green-400 w-6 rounded-t transition-all duration-500"
-                  style={{ height: `${Math.max(height, 5)}%` }}
-                />
-                <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                  {item.label}
-                </div>
+          {data.map((item, index) => (
+            <div key={index} className="flex flex-col items-center gap-1">
+              <div className="text-xs text-gray-600 dark:text-gray-400">
+                {item.value}
               </div>
-            );
-          })}
+              <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                {item.label}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -68,31 +57,20 @@ export const LineChart = ({ data, title, className = '' }) => {
 // Donut Chart Component
 export const DonutChart = ({ data, title, className = '' }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
-  const colors = [
-    'text-blue-500',
-    'text-green-500', 
-    'text-yellow-500',
-    'text-purple-500',
-    'text-red-500'
-  ];
-  
+
   return (
     <div className={`${className}`}>
       {title && <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{title}</h4>}
       <div className="flex items-center gap-4">
-        {/* Simple representation using stacked bars in circle */}
-        <div className="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center relative overflow-hidden">
-          <div className="text-center">
-            <div className="text-lg font-bold text-gray-900 dark:text-gray-100">{total}</div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">Total</div>
-          </div>
+        <div className="text-center">
+          <div className="text-lg font-bold text-gray-900 dark:text-gray-100">{total}</div>
+          <div className="text-xs text-gray-600 dark:text-gray-400">Total</div>
         </div>
         <div className="flex-1 space-y-2">
           {data.map((item, index) => {
             const percentage = total > 0 ? ((item.value / total) * 100).toFixed(1) : 0;
             return (
               <div key={index} className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full bg-current ${colors[index % colors.length]}`} />
                 <div className="flex-1 text-sm text-gray-700 dark:text-gray-300">
                   {item.label}
                 </div>

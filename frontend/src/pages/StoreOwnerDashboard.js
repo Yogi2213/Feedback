@@ -103,10 +103,12 @@ const StoreOwnerDashboard = () => {
 
   if (loading) {
     return (
-      <div className="container py-8">
-        <div className="text-center">
-          <div className="loading w-8 h-8 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading dashboard...</p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter">
+        <div className="container py-8">
+          <div className="text-center">
+            <div className="loading w-8 h-8 mx-auto"></div>
+            <p className="mt-2 text-gray-600 dark:text-pink-300">Loading dashboard...</p>
+          </div>
         </div>
       </div>
     );
@@ -114,13 +116,15 @@ const StoreOwnerDashboard = () => {
 
   if (stores.length === 0) {
     return (
-      <div className="container py-8">
-        <div className="text-center">
-          <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No stores found</h3>
-          <p className="text-gray-600">
-            You don't have any stores yet. Contact an administrator to add stores to your account.
-          </p>
+      <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter">
+        <div className="container py-8">
+          <div className="text-center">
+            <Store className="w-16 h-16 text-gray-300 dark:text-pink-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-pink-200 mb-2">No stores found</h3>
+            <p className="text-gray-600 dark:text-pink-300">
+              You don't have any stores yet. Contact an administrator to add stores to your account.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -134,113 +138,113 @@ const StoreOwnerDashboard = () => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/20 to-green-600/20 dark:from-pink-400/20 dark:to-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-green-300/20 to-green-500/20 dark:from-pink-500/20 dark:to-pink-700/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative container py-8">
         {/* Welcome Header */}
         <div className="mb-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/20 dark:to-purple-400/20 rounded-full mb-4">
-            <Crown className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Store Owner Portal</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/10 to-green-600/10 dark:from-pink-500/20 dark:to-pink-600/20 rounded-full mb-4">
+            <Crown className="w-5 h-5 text-green-600 dark:text-pink-400" />
+            <span className="text-sm font-medium text-green-700 dark:text-pink-300">Store Owner Portal</span>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-green-800 to-green-600 dark:from-white dark:via-pink-200 dark:to-pink-400 bg-clip-text text-transparent mb-2">
             Welcome back, {user?.name}!
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">Here's how your stores are performing today</p>
+          <p className="text-gray-600 dark:text-pink-300 text-lg">Here's how your stores are performing today</p>
         </div>
 
         {/* Enhanced Quick Stats Overview */}
         {selectedStore && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 dark:from-blue-400/20 dark:to-blue-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
+            <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 dark:from-pink-500/20 dark:to-pink-600/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 dark:from-pink-500 dark:to-pink-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Star className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <TrendingUp className="w-6 h-6 text-green-500 mb-1" />
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <TrendingUp className="w-6 h-6 text-green-500 dark:text-pink-400 mb-1" />
+                    <div className="w-2 h-2 bg-green-500 dark:bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-800 dark:from-pink-400 dark:to-pink-600 bg-clip-text text-transparent mb-2">
                   {averageRating.toFixed(1)}
                 </h3>
-                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Average Rating</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-pink-300">Average Rating</p>
                 <div className="mt-2 flex items-center gap-1">
                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span className="text-xs text-gray-500 dark:text-gray-400">out of 5</span>
+                  <span className="text-xs text-gray-500 dark:text-pink-400">out of 5</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 dark:from-purple-400/20 dark:to-purple-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
+            <Card className="bg-gradient-to-br from-green-400/10 to-green-500/5 dark:from-pink-400/20 dark:to-pink-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="p-4 bg-gradient-to-br from-green-400 to-green-500 dark:from-pink-400 dark:to-pink-500 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Users className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <Activity className="w-6 h-6 text-blue-500 mb-1" />
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <Activity className="w-6 h-6 text-green-600 dark:text-pink-400 mb-1" />
+                    <div className="w-2 h-2 bg-green-600 dark:bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-500 to-green-700 dark:from-pink-300 dark:to-pink-500 bg-clip-text text-transparent mb-2">
                   {totalRatings}
                 </h3>
-                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Total Reviews</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-pink-300">Total Reviews</p>
                 <div className="mt-2 flex items-center gap-1">
-                  <MessageSquare className="w-4 h-4 text-purple-500" />
-                  <span className="text-xs text-gray-500 dark:text-gray-400">customer feedback</span>
+                  <MessageSquare className="w-4 h-4 text-green-500 dark:text-pink-400" />
+                  <span className="text-xs text-gray-500 dark:text-pink-400">customer feedback</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-green-500/10 to-green-600/5 dark:from-green-400/20 dark:to-green-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
+            <Card className="bg-gradient-to-br from-green-600/10 to-green-700/5 dark:from-pink-600/20 dark:to-pink-700/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="p-4 bg-gradient-to-br from-green-600 to-green-700 dark:from-pink-600 dark:to-pink-700 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Award className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <Zap className="w-6 h-6 text-yellow-500 mb-1" />
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                    <Zap className="w-6 h-6 text-yellow-500 dark:text-pink-400 mb-1" />
+                    <div className="w-2 h-2 bg-yellow-500 dark:bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-700 to-green-900 dark:from-pink-300 dark:to-pink-500 bg-clip-text text-transparent mb-2">
                   {ratingDistribution[5]}
                 </h3>
-                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">5-Star Reviews</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-pink-300">5-Star Reviews</p>
                 <div className="mt-2 flex items-center gap-1">
                   <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                  <span className="text-xs text-gray-500 dark:text-gray-400">excellent ratings</span>
+                  <span className="text-xs text-gray-500 dark:text-pink-400">excellent ratings</span>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-pink-500/10 to-pink-600/5 dark:from-pink-400/20 dark:to-pink-500/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
+            <Card className="bg-gradient-to-br from-green-300/10 to-green-400/5 dark:from-pink-300/20 dark:to-pink-400/10 p-6 hover:shadow-2xl transition-all duration-500 group hover:-translate-y-2 border-0 shadow-lg">
               <CardContent className="p-0">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-4 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="p-4 bg-gradient-to-br from-green-300 to-green-400 dark:from-pink-300 dark:to-pink-400 rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Heart className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <Target className="w-6 h-6 text-purple-500 mb-1" />
-                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                    <Target className="w-6 h-6 text-green-500 dark:text-pink-400 mb-1" />
+                    <div className="w-2 h-2 bg-green-500 dark:bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent mb-2">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-green-600 dark:from-pink-200 dark:to-pink-400 bg-clip-text text-transparent mb-2">
                   {((ratingDistribution[5] + ratingDistribution[4]) / Math.max(totalRatings, 1) * 100).toFixed(0)}%
                 </h3>
-                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">Satisfaction Rate</p>
+                <p className="text-sm font-semibold text-gray-600 dark:text-pink-300">Satisfaction Rate</p>
                 <div className="mt-2 flex items-center gap-1">
-                  <Heart className="w-4 h-4 text-pink-500" />
-                  <span className="text-xs text-gray-500 dark:text-gray-400">happy customers</span>
+                  <Heart className="w-4 h-4 text-green-500 dark:text-pink-400" />
+                  <span className="text-xs text-gray-500 dark:text-pink-400">happy customers</span>
                 </div>
               </CardContent>
             </Card>
@@ -250,9 +254,9 @@ const StoreOwnerDashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Store Selection */}
           <div className="lg:col-span-1">
-            <Card className="p-6">
+            <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
               <CardHeader className="p-0 pb-4">
-                <CardTitle className="text-lg">Your Stores</CardTitle>
+                <CardTitle className="text-lg text-gray-900 dark:text-pink-200">Your Stores</CardTitle>
               </CardHeader>
               <CardContent className="p-0 space-y-3">
                 {stores.map((store) => (
@@ -262,17 +266,17 @@ const StoreOwnerDashboard = () => {
                     onClick={() => handleStoreSelect(store)}
                     className={`w-full text-left p-4 h-auto justify-start transition-all duration-300 hover:scale-[1.02] ${
                       selectedStore?.id === store.id
-                        ? 'bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/50 dark:to-purple-900/50 shadow-lg border-blue-500'
-                        : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                        ? 'bg-gradient-to-r from-green-50 to-green-100 dark:from-pink-900/50 dark:to-pink-800/50 shadow-lg border-green-500 dark:border-pink-500'
+                        : 'hover:bg-green-50 dark:hover:bg-pink-900/30'
                     }`}
                   >
                     <div className="w-full">
-                      <h4 className="font-medium text-gray-900 dark:text-white text-left">{store.name}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 text-left">{store.address}</p>
+                      <h4 className="font-medium text-gray-900 dark:text-pink-200 text-left">{store.name}</h4>
+                      <p className="text-sm text-gray-600 dark:text-pink-300 mt-1 text-left">{store.address}</p>
                       <div className="flex items-center gap-2 mt-2">
                         <div className="flex items-center gap-1">
                           {renderStars(Math.round(store.avgRating))}
-                          <span className="text-sm text-gray-600 dark:text-gray-300">
+                          <span className="text-sm text-gray-600 dark:text-pink-300">
                             {store.avgRating.toFixed(1)}
                           </span>
                         </div>
@@ -292,23 +296,23 @@ const StoreOwnerDashboard = () => {
             {selectedStore ? (
               <div className="space-y-6">
                 {/* Motivational Quote */}
-                <Card className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 dark:from-indigo-400/20 dark:via-purple-400/20 dark:to-pink-400/20 p-6">
+                <Card className="bg-gradient-to-r from-green-500/10 via-green-400/10 to-green-300/10 dark:from-pink-500/20 dark:via-pink-400/20 dark:to-pink-300/20 p-6 border border-green-200 dark:border-pink-800">
                   <CardContent className="p-0 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 rounded-full mb-4">
-                      <Crown className="w-5 h-5 text-yellow-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Daily Inspiration</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-black/50 rounded-full mb-4">
+                      <Crown className="w-5 h-5 text-yellow-500 dark:text-pink-400" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-pink-300">Daily Inspiration</span>
                     </div>
-                    <blockquote className="text-lg font-medium text-gray-800 dark:text-gray-200 italic">
+                    <blockquote className="text-lg font-medium text-gray-800 dark:text-pink-200 italic">
                       "Success is not final, failure is not fatal: it is the courage to continue that counts."
                     </blockquote>
-                    <cite className="text-sm text-gray-600 dark:text-gray-400 mt-2 block">— Winston Churchill</cite>
+                    <cite className="text-sm text-gray-600 dark:text-pink-400 mt-2 block">— Winston Churchill</cite>
                   </CardContent>
                 </Card>
 
                 {/* Rating Distribution */}
-                <Card className="p-6">
+                <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
                   <CardHeader className="p-0 pb-4">
-                    <CardTitle className="text-lg">Rating Distribution</CardTitle>
+                    <CardTitle className="text-lg text-gray-900 dark:text-pink-200">Rating Distribution</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0 space-y-3">
                     {[5, 4, 3, 2, 1].map((rating) => {
@@ -318,16 +322,10 @@ const StoreOwnerDashboard = () => {
                       return (
                         <div key={rating} className="flex items-center gap-3">
                           <div className="flex items-center gap-1 w-16">
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">{rating}</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-pink-200">{rating}</span>
                             <StarIcon className="w-4 h-4 text-yellow-400 fill-current" />
                           </div>
-                          <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                            <div
-                              className="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full transition-all duration-500"
-                              style={{ width: `${percentage}%` }}
-                            ></div>
-                          </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400 w-16 text-right">
+                          <div className="text-sm text-gray-600 dark:text-pink-300 w-16 text-right">
                             {count} ({percentage.toFixed(0)}%)
                           </div>
                         </div>
@@ -338,7 +336,7 @@ const StoreOwnerDashboard = () => {
 
                 {/* Analytics Charts */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Card className="p-6">
+                  <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
                     <DonutChart
                       title="Rating Breakdown"
                       data={[5, 4, 3, 2, 1].map(rating => ({
@@ -348,7 +346,7 @@ const StoreOwnerDashboard = () => {
                     />
                   </Card>
 
-                  <Card className="p-6">
+                  <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
                     <LineChart
                       title="Recent Ratings Trend"
                       data={(() => {
@@ -373,7 +371,7 @@ const StoreOwnerDashboard = () => {
                 </div>
 
                 {/* Performance Metrics */}
-                <Card className="p-6">
+                <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
                   <BarChart
                     title="Rating Performance Overview"
                     data={[
@@ -387,16 +385,16 @@ const StoreOwnerDashboard = () => {
                 </Card>
 
                 {/* Recent Ratings */}
-                <Card className="p-6">
+                <Card className="p-6 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
                   <CardHeader className="p-0 pb-4">
-                    <CardTitle className="text-lg">Recent Ratings</CardTitle>
+                    <CardTitle className="text-lg text-gray-900 dark:text-pink-200">Recent Ratings</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
                     {currentRatings.length === 0 ? (
                       <div className="text-center py-8">
                         <Star className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                        <p className="text-gray-600 dark:text-gray-300">No ratings yet</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Ratings will appear here once customers start rating your store</p>
+                        <p className="text-gray-600 dark:text-pink-300">No ratings yet</p>
+                        <p className="text-sm text-gray-500 dark:text-pink-400">Ratings will appear here once customers start rating your store</p>
                       </div>
                     ) : (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -414,25 +412,25 @@ const StoreOwnerDashboard = () => {
                           captionText={`${rating.user.name} - ${rating.rating}/5 stars`}
                           displayOverlayContent={false}
                         >
-                          <div className="w-full h-full bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-800 dark:via-gray-700 dark:to-indigo-900 rounded-xl border border-gray-200 dark:border-gray-600 p-6 flex flex-col justify-between shadow-lg">
+                          <div className="w-full h-full bg-gradient-to-br from-green-50 via-white to-green-100 dark:from-pink-950 dark:via-black dark:to-pink-900 rounded-xl border border-green-200 dark:border-pink-600 p-6 flex flex-col justify-between shadow-lg">
                             {/* Header */}
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 dark:from-pink-500 dark:to-pink-600 rounded-full flex items-center justify-center shadow-lg">
                                   <User className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                  <p className="font-semibold text-gray-900 dark:text-white text-sm">{rating.user.name}</p>
+                                  <p className="font-semibold text-gray-900 dark:text-pink-200 text-sm">{rating.user.name}</p>
                                   <div className="flex items-center gap-1">
                                     {renderStars(rating.rating)}
                                   </div>
                                 </div>
                               </div>
                               <div className="text-right">
-                                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                                <div className="text-2xl font-bold text-green-600 dark:text-pink-400">
                                   {rating.rating}
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">
+                                <div className="text-xs text-gray-500 dark:text-pink-400">
                                   /5
                                 </div>
                               </div>
@@ -441,10 +439,10 @@ const StoreOwnerDashboard = () => {
                             {/* Comment */}
                             {rating.comment ? (
                               <div className="flex-1 mb-4">
-                                <div className="bg-white/70 dark:bg-gray-800/50 p-4 rounded-lg border-l-4 border-blue-400">
+                                <div className="bg-white/70 dark:bg-black/50 p-4 rounded-lg border-l-4 border-green-400 dark:border-pink-400">
                                   <div className="flex items-start gap-2">
-                                    <MessageSquare className="w-4 h-4 mt-0.5 text-blue-500 flex-shrink-0" />
-                                    <p className="text-sm text-gray-700 dark:text-gray-300 italic line-clamp-4">
+                                    <MessageSquare className="w-4 h-4 mt-0.5 text-green-500 dark:text-pink-400 flex-shrink-0" />
+                                    <p className="text-sm text-gray-700 dark:text-pink-300 italic line-clamp-4">
                                       "{rating.comment}"
                                     </p>
                                   </div>
@@ -454,18 +452,18 @@ const StoreOwnerDashboard = () => {
                               <div className="flex-1 mb-4 flex items-center justify-center">
                                 <div className="text-center">
                                   <Star className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                                  <p className="text-sm text-gray-500 dark:text-gray-400">No comment provided</p>
+                                  <p className="text-sm text-gray-500 dark:text-pink-400">No comment provided</p>
                                 </div>
                               </div>
                             )}
 
                             {/* Footer */}
-                            <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-600">
+                            <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-pink-600">
                               <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                <span className="text-xs text-gray-600 dark:text-gray-400">Verified Review</span>
+                                <div className="w-2 h-2 bg-green-500 dark:bg-pink-400 rounded-full animate-pulse"></div>
+                                <span className="text-xs text-gray-600 dark:text-pink-400">Verified Review</span>
                               </div>
-                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                              <span className="text-xs text-gray-500 dark:text-pink-400">
                                 {new Date(rating.createdAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                               </span>
                             </div>
@@ -478,11 +476,11 @@ const StoreOwnerDashboard = () => {
               </Card>
             </div>
           ) : (
-            <Card className="p-12 text-center">
+            <Card className="p-12 text-center bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-green-200 dark:border-pink-800">
               <CardContent className="p-0">
-                <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Select a Store</h3>
-                <p className="text-gray-600 dark:text-gray-300">Choose a store from the sidebar to view its analytics</p>
+                <Store className="w-16 h-16 text-gray-300 dark:text-pink-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-pink-200 mb-2">Select a Store</h3>
+                <p className="text-gray-600 dark:text-pink-300">Choose a store from the sidebar to view its analytics</p>
               </CardContent>
             </Card>
           )}

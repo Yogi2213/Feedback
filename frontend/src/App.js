@@ -138,7 +138,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-green-50 dark:bg-gray-900 transition-colors">
+          <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter transition-colors">
             <Navbar />
             <main>
               <AppRoutes />
@@ -148,21 +148,24 @@ function App() {
               toastOptions={{
                 duration: 4000,
                 style: {
-                  background: '#363636',
-                  color: '#fff',
+                  background: 'var(--card-bg)',
+                  color: 'var(--text-primary)',
+                  fontFamily: 'Inter, sans-serif',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid var(--border-color)',
                 },
                 success: {
                   duration: 3000,
                   iconTheme: {
-                    primary: '#10b981',
-                    secondary: '#fff',
+                    primary: 'var(--accent-primary)',
+                    secondary: 'var(--text-primary)',
                   },
                 },
                 error: {
                   duration: 5000,
                   iconTheme: {
                     primary: '#ef4444',
-                    secondary: '#fff',
+                    secondary: 'var(--text-primary)',
                   },
                 },
               }}

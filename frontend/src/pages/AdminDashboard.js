@@ -185,11 +185,11 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-white dark:from-green-900 dark:via-emerald-900 dark:to-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-green-100 dark:from-black dark:via-pink-950 dark:to-black font-inter relative overflow-hidden">
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/30 to-emerald-600/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-emerald-400/25 to-teal-600/25 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/20 to-green-600/20 dark:from-pink-400/20 dark:to-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-green-300/20 to-green-500/20 dark:from-pink-500/20 dark:to-pink-700/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-white/40 to-green-200/30 rounded-full blur-3xl animate-pulse delay-500"></div>
         <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-green-300/20 to-white/30 rounded-full blur-3xl animate-pulse delay-1500"></div>
         <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-emerald-300/25 to-green-300/25 rounded-full blur-2xl animate-pulse delay-2000"></div>
@@ -198,21 +198,21 @@ const AdminDashboard = () => {
       <div className="relative container py-8 z-10">
         {/* Enhanced Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500/10 to-orange-500/10 dark:from-red-400/20 dark:to-orange-400/20 rounded-full mb-6 border border-red-200/50 dark:border-red-400/30 backdrop-blur-sm">
-            <Award className="w-5 h-5 text-red-600 dark:text-red-400 animate-pulse" />
-            <span className="text-sm font-semibold text-red-700 dark:text-red-300">Administrator Portal</span>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/10 to-green-600/10 dark:from-pink-500/20 dark:to-pink-600/20 rounded-full mb-6 border border-green-200/50 dark:border-pink-400/30 backdrop-blur-sm">
+            <Award className="w-5 h-5 text-green-600 dark:text-pink-400 animate-pulse" />
+            <span className="text-sm font-semibold text-green-700 dark:text-pink-300">Administrator Portal</span>
           </div>
           
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-red-800 to-orange-800 dark:from-white dark:via-red-200 dark:to-orange-200 bg-clip-text text-transparent mb-4">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-green-800 to-green-600 dark:from-white dark:via-pink-200 dark:to-pink-400 bg-clip-text text-transparent mb-4">
             Admin Dashboard
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-pink-300 max-w-2xl mx-auto">
             Welcome back, {user?.name}! Manage your platform with powerful tools and insights.
           </p>
         </div>
 
         {/* Enhanced Beautiful Tabs */}
-        <Card className="mb-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-0 shadow-2xl">
+        <Card className="mb-8 bg-white/90 dark:bg-black/90 backdrop-blur-md border border-green-200 dark:border-pink-800 shadow-2xl">
           <CardContent className="p-8">
             <nav className="flex flex-wrap gap-4 justify-center">
               {[
