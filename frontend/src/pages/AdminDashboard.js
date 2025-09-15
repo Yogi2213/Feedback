@@ -18,6 +18,8 @@ import Modal from '../components/Modal';
 import CreateUserForm from '../components/CreateUserForm';
 import CreateStoreForm from '../components/CreateStoreForm';
 import UserDetailsModal from '../components/UserDetailsModal';
+import EditUserForm from '../components/EditUserForm';
+import EditStoreForm from '../components/EditStoreForm';
 import { BarChart, DonutChart, GrowthChart } from '../components/Charts';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -37,6 +39,10 @@ const AdminDashboard = () => {
   const [createType, setCreateType] = useState('user');
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUserDetails, setShowUserDetails] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
+  const [editingStore, setEditingStore] = useState(null);
+  const [showEditStoreModal, setShowEditStoreModal] = useState(false);
 
   useEffect(() => {
     loadDashboardData();
@@ -117,6 +123,40 @@ const AdminDashboard = () => {
       } catch (error) {
         toast.error('Failed to delete store');
       }
+    }
+  };
+
+  const handleEditUser = (user) => {
+    setEditingUser(user);
+    setShowEditUserModal(true);
+  };
+
+  const handleEditStore = (store) => {
+    setEditingStore(store);
+    setShowEditStoreModal(true);
+  };
+
+  const handleUpdateUser = async (userId, userData) => {
+    try {
+      await usersAPI.updateUser(userId, userData);
+      toast.success('User updated successfully');
+      setShowEditUserModal(false);
+      setEditingUser(null);
+      loadUsers();
+    } catch (error) {
+      toast.error('Failed to update user');
+    }
+  };
+
+  const handleUpdateStore = async (storeId, storeData) => {
+    try {
+      await storesAPI.updateStore(storeId, storeData);
+      toast.success('Store updated successfully');
+      setShowEditStoreModal(false);
+      setEditingStore(null);
+      loadStores();
+    } catch (error) {
+      toast.error('Failed to update store');
     }
   };
 
@@ -770,7 +810,10 @@ const AdminDashboard = () => {
                           >
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="text-blue-600 hover:text-blue-800">
+                          <button 
+                            onClick={() => handleEditUser(user)}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
@@ -823,6 +866,32 @@ const AdminDashboard = () => {
         title="User Details"
       >
         <UserDetailsModal user={selectedUser} onClose={() => setShowUserDetails(false)} />
+      </Modal>
+
+      {/* Edit User Modal */}
+      <Modal 
+        show={showEditUserModal} 
+        onClose={() => setShowEditUserModal(false)} 
+        title="Edit User"
+      >
+        <EditUserForm 
+          user={editingUser} 
+          onClose={() => setShowEditUserModal(false)} 
+          onSuccess={(userData) => handleUpdateUser(editingUser.id, userData)}
+        />
+      </Modal>
+
+      {/* Edit Store Modal */}
+      <Modal 
+        show={showEditStoreModal} 
+        onClose={() => setShowEditStoreModal(false)} 
+        title="Edit Store"
+      >
+        <EditStoreForm 
+          store={editingStore} 
+          onClose={() => setShowEditStoreModal(false)} 
+          onSuccess={(storeData) => handleUpdateStore(editingStore.id, storeData)}
+        />
       </Modal>
 
       {activeTab === 'stores' && (
@@ -896,7 +965,10 @@ const AdminDashboard = () => {
                       <td className="py-3 px-4 text-gray-600">{store.owner.name}</td>
                       <td className="py-3 px-4">
                         <div className="flex gap-2">
-                          <button className="text-blue-600 hover:text-blue-800">
+                          <button 
+                            onClick={() => handleEditStore(store)}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button

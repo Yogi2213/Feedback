@@ -2,13 +2,47 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-// Create axios instance
+// Create axios instance with optimized settings
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  timeout: 30000, // 30 second timeout
+  // Enable request/response compression
+  decompress: true
 });
+
+// Request queue to prevent duplicate requests
+const requestQueue = new Map();
+
+// Request deduplication interceptor
+api.interceptors.request.use(
+  (config) => {
+    // Create unique key for request
+    const requestKey = `${config.method}-${config.url}-${JSON.stringify(config.params || {})}-${JSON.stringify(config.data || {})}`;
+    
+    // Check if same request is already in progress
+    if (requestQueue.has(requestKey)) {
+      // Return the existing promise
+      return requestQueue.get(requestKey);
+    }
+    
+    // Store the request promise
+    const requestPromise = Promise.resolve(config);
+    requestQueue.set(requestKey, requestPromise);
+    
+    // Clean up after request completes
+    requestPromise.finally(() => {
+      requestQueue.delete(requestKey);
+    });
+    
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
@@ -53,14 +87,25 @@ export const usersAPI = {
   deleteUser: (id) => api.delete(`/users/${id}`)
 };
 
-// Stores API
+// Stores API with optimized pagination
 export const storesAPI = {
-  getStores: (params) => api.get('/stores', { params }),
+  getStores: (params) => {
+    const optimizedParams = {
+      ...params,
+      limit: params.limit || 20, // Default pagination
+      page: params.page || 1
+    };
+    return api.get('/stores', { params: optimizedParams });
+  },
   getStore: (id) => api.get(`/stores/${id}`),
   createStore: (data) => api.post('/stores', data),
   updateStore: (id, data) => api.put(`/stores/${id}`, data),
   deleteStore: (id) => api.delete(`/stores/${id}`),
-  getStoresByOwner: (ownerId) => api.get(`/stores/owner/${ownerId}`)
+  getStoresByOwner: (ownerId) => api.get(`/stores/owner/${ownerId}`),
+  // Lightweight search for autocomplete
+  searchStores: (query, limit = 10) => api.get('/stores/search', { 
+    params: { q: query, limit } 
+  })
 };
 
 // Ratings API

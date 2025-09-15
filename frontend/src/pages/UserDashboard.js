@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { storesAPI, ratingsAPI } from '../services/api';
+import { useOptimizedFetch } from '../hooks/useOptimizedFetch';
+import { LoadingSpinner, SkeletonGrid, ErrorState, EmptyState } from '../components/LoadingStates';
 import { 
   Search, 
   Star, 
@@ -23,46 +25,61 @@ import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
   const { user } = useAuth();
-  const [stores, setStores] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
   const [ratingFilter, setRatingFilter] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [pendingRatings, setPendingRatings] = useState({});
 
-  useEffect(() => {
-    loadStores();
-  }, [searchTerm, sortBy, sortOrder, ratingFilter]);
-
-  const loadStores = async () => {
-    try {
-      setLoading(true);
-      const params = {
-        search: searchTerm,
-        sortBy,
-        sortOrder,
-        page: 1,
-        limit: 50
-      };
-      const response = await storesAPI.getStores(params);
-      if (response.data.success) {
-        let filteredStores = response.data.data.stores;
-        
-        // Apply rating filter
-        if (ratingFilter) {
-          const minRating = parseFloat(ratingFilter);
-          filteredStores = filteredStores.filter(store => store.avgRating >= minRating);
-        }
-        
-        setStores(filteredStores);
+  // Optimized data fetching with caching and debouncing
+  const fetchStores = async (params) => {
+    const response = await storesAPI.getStores({
+      search: params.search,
+      sortBy,
+      sortOrder,
+      page: params.page || 1,
+      limit: params.limit || 20
+    });
+    
+    if (response.data.success) {
+      let stores = response.data.data.stores;
+      
+      // Apply rating filter
+      if (ratingFilter) {
+        const minRating = parseFloat(ratingFilter);
+        stores = stores.filter(store => store.avgRating >= minRating);
       }
-    } catch (error) {
-      toast.error('Failed to load stores');
-    } finally {
-      setLoading(false);
+      
+      return {
+        items: stores,
+        total: response.data.data.total || stores.length
+      };
     }
+    throw new Error('Failed to fetch stores');
   };
+
+  const {
+    data: storesData,
+    loading,
+    error,
+    refresh,
+    loadMore,
+    hasMore
+  } = useOptimizedFetch(
+    fetchStores,
+    [sortBy, sortOrder, ratingFilter],
+    {
+      cacheKey: 'user-stores',
+      cacheTTL: 300000, // 5 minutes
+      debounceDelay: 300,
+      pagination: true,
+      pageSize: 20,
+      searchTerm,
+      filters: { ratingFilter }
+    }
+  );
+
+  const stores = storesData?.items || [];
 
   const handleRatingSubmit = async (storeId, rating, comment) => {
     try {
@@ -80,7 +97,7 @@ const UserDashboard = () => {
           delete updated[storeId];
           return updated;
         });
-        loadStores(); // Reload stores to update ratings
+        refresh(); // Refresh stores to update ratings
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to submit rating');
@@ -114,28 +131,46 @@ const UserDashboard = () => {
     );
   };
 
-  if (loading) {
+  // Show error state
+  if (error) {
     return (
-      <div className="container py-8">
-        <div className="text-center">
-          <div className="loading w-8 h-8 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading stores...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100 dark:from-gray-900 dark:via-slate-800 dark:to-green-900 bg-animated">
+        <div className="container py-8">
+          <ErrorState 
+            title="Failed to load stores"
+            message="Unable to fetch store data. Please check your connection and try again."
+            onRetry={refresh}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading skeleton on initial load
+  if (loading && !stores.length) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100 dark:from-gray-900 dark:via-slate-800 dark:to-green-900 bg-animated">
+        <div className="container py-8">
+          <div className="text-center mb-16">
+            <LoadingSpinner size="lg" text="Loading amazing stores for you..." />
+          </div>
+          <SkeletonGrid count={6} columns={3} />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100 dark:from-gray-900 dark:via-slate-800 dark:to-green-900 relative overflow-hidden bg-animated">
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-40 -right-32 w-96 h-96 bg-gradient-to-br from-green-400/30 to-emerald-600/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-gradient-to-br from-pink-400/30 to-indigo-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-emerald-400/25 to-cyan-600/25 rounded-full blur-3xl animate-pulse delay-500"></div>
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-full blur-2xl animate-bounce"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-green-400/20 to-teal-500/20 rounded-full blur-2xl animate-bounce delay-700"></div>
         {/* Floating particles */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping delay-300"></div>
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-green-400 rounded-full animate-ping delay-300"></div>
         <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-purple-400 rounded-full animate-ping delay-1000"></div>
         <div className="absolute top-1/2 right-1/3 w-1 h-1 bg-pink-400 rounded-full animate-ping delay-500"></div>
       </div>
@@ -143,14 +178,14 @@ const UserDashboard = () => {
       <div className="relative container py-8">
         {/* Enhanced Header with Hero Section */}
         <div className="text-center mb-16 relative">
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500/15 to-purple-500/15 dark:from-blue-400/25 dark:to-purple-400/25 rounded-full mb-8 border border-blue-200/60 dark:border-blue-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
-            <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400 animate-pulse group-hover:animate-spin" />
-            <span className="text-base font-bold text-blue-700 dark:text-blue-300 tracking-wide">🌟 Store Discovery Platform</span>
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500/15 to-emerald-500/15 dark:from-green-400/25 dark:to-emerald-400/25 rounded-full mb-8 border border-green-200/60 dark:border-green-400/40 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 group">
+            <Sparkles className="w-6 h-6 text-green-600 dark:text-green-400 animate-pulse group-hover:animate-spin" />
+            <span className="text-base font-bold text-green-700 dark:text-green-300 tracking-wide">🌟 Store Discovery Platform</span>
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           </div>
           
           <div className="relative mb-6">
-            <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-2 tracking-tight">
+            <h1 className="text-6xl md:text-7xl font-black text-gradient mb-2 tracking-tight floating">
               Store Directory
             </h1>
             <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce opacity-80"></div>
@@ -164,7 +199,7 @@ const UserDashboard = () => {
           {/* Stats Preview */}
           <div className="flex justify-center items-center gap-8 mt-8 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
-              <Store className="w-5 h-5 text-blue-600" />
+              <Store className="w-5 h-5 text-green-600" />
               <span className="font-semibold text-gray-700 dark:text-gray-300">{stores.length} Stores</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 rounded-full backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50">
@@ -179,17 +214,17 @@ const UserDashboard = () => {
         </div>
 
         {/* Enhanced Search and Filters */}
-        <Card className="mb-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-2xl overflow-hidden">
+        <Card className="mb-12 modern-card hover-lift glass shadow-strong transition-all duration-500 rounded-2xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-400/10 dark:via-purple-400/10 dark:to-pink-400/10"></div>
           <CardContent className="p-8 relative">
             <div className="space-y-8">
               <div className="flex flex-col lg:flex-row gap-6">
           <div className="relative flex-1 group">
-                  <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 group-focus-within:text-blue-500 transition-colors duration-200" />
+                  <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6 group-focus-within:text-green-500 transition-colors duration-200" />
             <input
               type="text"
               placeholder="🔍 Search stores by name or address..."
-                    className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md text-lg transition-all duration-300 focus:shadow-2xl hover:shadow-lg placeholder-gray-400 font-medium"
+                    className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md text-lg transition-all duration-300 focus:shadow-2xl hover:shadow-lg placeholder-gray-400 font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -200,7 +235,7 @@ const UserDashboard = () => {
           
                 <div className="flex gap-4">
             <select
-                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
+                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
@@ -210,7 +245,7 @@ const UserDashboard = () => {
             </select>
             
             <select
-                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
+                    className="px-6 py-5 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 bg-white/80 dark:bg-gray-700/80 backdrop-blur-md transition-all duration-300 focus:shadow-2xl hover:shadow-lg font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
             >
@@ -220,10 +255,10 @@ const UserDashboard = () => {
           </div>
         </div>
 
-              <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 dark:from-gray-800/50 dark:to-blue-900/20 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-600/50">
+              <div className="bg-gradient-to-r from-gray-50 to-green-50/50 dark:from-gray-800/50 dark:to-green-900/20 p-6 rounded-2xl border border-gray-200/50 dark:border-gray-600/50">
                 <div className="flex flex-wrap items-center gap-4">
                   <span className="text-base font-bold text-gray-700 dark:text-gray-300 flex items-center gap-3">
-                    <Filter className="w-5 h-5 text-blue-600" />
+                    <Filter className="w-5 h-5 text-green-600" />
                     🎯 Filter by rating:
                   </span>
           {['', '4', '3', '2', '1'].map((rating) => (
@@ -231,10 +266,10 @@ const UserDashboard = () => {
               key={rating}
               onClick={() => setRatingFilter(rating)}
                       variant={ratingFilter === rating ? "default" : "outline"}
-                      className={`px-6 py-3 rounded-full transition-all duration-300 font-semibold transform hover:scale-105 ${
+                      className={`btn-modern clickable hover-glow ${
                 ratingFilter === rating
-                          ? 'bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white shadow-xl border-0'
-                          : 'hover:bg-white dark:hover:bg-gray-700 hover:shadow-lg border-2 border-gray-300 dark:border-gray-600'
+                          ? 'pulse-glow'
+                          : 'hover-lift'
                       }`}
                     >
                       {rating ? (
@@ -257,32 +292,15 @@ const UserDashboard = () => {
 
       {/* Enhanced Stores Grid */}
       {stores.length === 0 ? (
-          <Card className="text-center py-20 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/80 dark:from-gray-800/90 dark:via-blue-900/50 dark:to-purple-900/50 backdrop-blur-md border-0 shadow-2xl rounded-3xl">
-            <CardContent className="p-0">
-              <div className="relative mb-8">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-700 dark:via-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mx-auto shadow-xl">
-                  <Store className="w-16 h-16 text-gray-400 dark:text-gray-300" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce opacity-80"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-red-500 rounded-full animate-bounce delay-300 opacity-80"></div>
-              </div>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent mb-4">🔍 No stores found</h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-md mx-auto leading-relaxed">
-            {searchTerm || ratingFilter 
-              ? '🎯 Try adjusting your search criteria to discover more stores'
-              : '🏪 No stores are available at the moment - check back soon!'
-            }
-          </p>
-              <div className="mt-8 flex justify-center">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
-                  <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce delay-200"></div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ) : (
+        <EmptyState 
+          title="No stores found"
+          message={searchTerm || ratingFilter 
+            ? '🎯 Try adjusting your search criteria to discover more stores'
+            : '🏪 No stores are available at the moment - check back soon!'
+          }
+          icon={<Store className="w-8 h-8 text-gray-400" />}
+        />
+      ) : (
           <div className="space-y-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
@@ -308,10 +326,30 @@ const UserDashboard = () => {
                     pendingRatings={pendingRatings}
                     setPendingRatings={setPendingRatings}
                   />
+                </div>
+              ))}
+            </div>
+            
+            {/* Load More Button */}
+            {hasMore && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={loadMore}
+                  disabled={loading}
+                  className="btn-modern hover-lift pulse-glow"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="loading-modern w-5 h-5"></div>
+                      Loading more...
+                    </div>
+                  ) : (
+                    'Load More Stores'
+                  )}
+                </button>
               </div>
-            ))}
+            )}
           </div>
-        </div>
       )}
 
         {/* Enhanced Stats Dashboard */}

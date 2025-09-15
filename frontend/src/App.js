@@ -138,7 +138,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+          <div className="min-h-screen bg-green-50 dark:bg-gray-900 transition-colors">
             <Navbar />
             <main>
               <AppRoutes />
@@ -154,7 +154,7 @@ function App() {
                 success: {
                   duration: 3000,
                   iconTheme: {
-                    primary: '#4ade80',
+                    primary: '#10b981',
                     secondary: '#fff',
                   },
                 },

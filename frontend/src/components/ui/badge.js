@@ -2,7 +2,7 @@ import React from 'react';
 
 const badgeVariants = {
   variant: {
-    default: "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg",
+    default: "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg",
     secondary: "bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-900 dark:text-gray-100",
     destructive: "bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg",
     success: "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg",
